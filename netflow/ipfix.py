@@ -733,9 +733,14 @@ class IPFIXDataRecord:
 
             field_type = IPFIXFieldTypes.by_id(field_type_id)  # type: Optional[FieldType]
             if not field_type:
-                # This should break, since the exporter seems to use a field identifier
-                # which is not standardized by IANA.
-                raise NotImplementedError("Field type with ID {} is not implemented".format(field_type_id))
+                if type(field) is not TemplateFieldEnterprise:
+                    # This should break, since the exporter seems to use a field identifier
+                    # which is not standardized by IANA.
+                    raise NotImplementedError("Field type with ID {} is not implemented".format(field_type_id))
+                else:
+                    # This should break, since the exporter seems to use a field identifier
+                    # which is not suppored
+                    raise NotImplementedError("Field type with ID {} is not suppored".format(field_type_id))
 
             datatype = field_type.type  # type: str
             discovered_fields.append((datatype, field_type_id))
