@@ -759,7 +759,7 @@ class IPFIXDataRecord:
             elif field_length == 8:
                 unpacker += "q" if issigned else "d" if isfloat else "Q"
             else:
-                raise IPFIXTemplateError("Template field_length {} not handled in unpacker".format(field_length))
+                unpacker += f"{field_length}s"
 
         # Finally, unpack the data byte stream according to format defined in iteration above
         pack = struct.unpack(unpacker, data[0:offset])
